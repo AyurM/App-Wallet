@@ -1,10 +1,10 @@
+import 'package:app_wallet/res/theme/app_colors.dart';
+import 'package:app_wallet/res/theme/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 const _kAppBarButtonSize = 36.0;
 const _kBorderRadius = 8.0;
-const _kDefaultColor = Color(0xFF19173D);
-const kHorizontalPadding20 = EdgeInsets.symmetric(horizontal: 20);
 
 class WalletAppBar extends AppBar {
   final String text;
@@ -45,7 +45,7 @@ class WalletAppBar extends AppBar {
   bool? get centerTitle => true;
 
   @override
-  Color? get backgroundColor => bgColor ?? _kDefaultColor;
+  Color? get backgroundColor => bgColor ?? AppColors.darkPrimary;
 
   @override
   double? get elevation => 0;
@@ -84,7 +84,7 @@ class AppBarButton extends StatelessWidget {
           height: _kAppBarButtonSize,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(_kBorderRadius),
-              color: _kDefaultColor),
+              color: AppColors.darkPrimary),
           child: InkWell(
             onTap: onPressed,
             borderRadius: BorderRadius.circular(_kBorderRadius),

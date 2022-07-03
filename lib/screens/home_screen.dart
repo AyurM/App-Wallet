@@ -46,7 +46,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               children: const [
                 HomeTab(),
                 WalletTab(),
-                Center(child: Text('Insight Tab')),
+                Center(
+                    child: Text(
+                  'Insight Tab',
+                )),
                 Center(child: Text('Profile Tab'))
               ],
             ),

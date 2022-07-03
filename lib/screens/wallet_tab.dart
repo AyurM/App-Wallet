@@ -2,6 +2,8 @@ import 'package:app_wallet/components/app_bar.dart';
 import 'package:app_wallet/components/credit_card_slider.dart';
 import 'package:flutter/material.dart';
 
+const _titleText = 'Wallet';
+
 class WalletTab extends StatelessWidget {
   const WalletTab({Key? key}) : super(key: key);
 
@@ -9,7 +11,7 @@ class WalletTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: WalletAppBar(
-        text: 'Wallet',
+        text: _titleText,
         context: context,
         onBackPressed: () {},
       ),
