@@ -1,6 +1,6 @@
+import 'package:app_wallet/res/theme/app_colors.dart';
+import 'package:app_wallet/screens/home_screen.dart';
 import 'package:flutter/material.dart';
-
-import 'screens/wallet_tab.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,10 +14,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'App Wallet Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const WalletTab(),
+      theme: ThemeData(scaffoldBackgroundColor: AppColors.darkPrimary),
+      home: const HomeScreen(),
     );
   }
 }

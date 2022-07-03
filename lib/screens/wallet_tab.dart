@@ -13,11 +13,12 @@ class WalletTab extends StatelessWidget {
         context: context,
         onBackPressed: () {},
       ),
-      backgroundColor: const Color(0xFF19173D),
-      body: SingleChildScrollView(
-        child: Column(
-          children: const [SizedBox(height: 30), CreditCardSlider()],
-        ),
+      body: Column(
+        children: const [
+          SizedBox(height: 30),
+          CreditCardSlider(),
+          SizedBox(height: 30),
+        ],
       ),
     );
   }
