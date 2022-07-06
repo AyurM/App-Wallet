@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:app_wallet/data/model/balance_stat.dart';
+import 'package:app_wallet/data/model/transaction_data.dart';
 import 'package:app_wallet/data/model/user_profile.dart';
 import 'package:flutter/material.dart';
 
@@ -38,4 +39,53 @@ class DataMockUtils {
       id: 1,
       name: 'Ayur Markhakshinov',
       imagePath: 'assets/images/user_avatar.jpg');
+
+  static List<TransactionData> getMockTransactions() {
+    final now = DateTime.now();
+
+    return [
+      TransactionData(
+          title: 'Shell',
+          imagePath: 'assets/images/logo_shell.png',
+          value: 87.41,
+          dateTime: DateTime(now.year, now.month, now.day - 1),
+          type: TransactionType.expense),
+      TransactionData(
+          title: 'Amazon',
+          imagePath: 'assets/images/logo_amazon.png',
+          value: 142.80,
+          dateTime: DateTime(now.year, now.month, now.day - 1),
+          type: TransactionType.expense),
+      TransactionData(
+          title: 'Apple',
+          imagePath: 'assets/images/logo_apple.png',
+          value: 328.0,
+          dateTime: DateTime(now.year, now.month, now.day - 2),
+          type: TransactionType.expense),
+      TransactionData(
+          title: 'Carrefour',
+          imagePath: 'assets/images/logo_carrefour.png',
+          value: 112.43,
+          dateTime: DateTime(now.year, now.month, now.day - 2),
+          type: TransactionType.expense),
+      TransactionData(
+          title: 'Transfer',
+          imagePath: 'assets/images/logo_transfer.png',
+          value: 1670.0,
+          dateTime: DateTime(now.year, now.month, now.day - 2),
+          type: TransactionType.income),
+      TransactionData(
+          title: 'Carrefour',
+          imagePath: 'assets/images/logo_carrefour.png',
+          value: 112.43,
+          dateTime: DateTime(now.year, now.month, now.day - 3),
+          type: TransactionType.expense),
+      TransactionData(
+          title: 'Shell',
+          imagePath: 'assets/images/logo_shell.png',
+          value: 32.87,
+          dateTime: DateTime(now.year, now.month, now.day - 3),
+          type: TransactionType.expense),
+    ];
+  }
 }

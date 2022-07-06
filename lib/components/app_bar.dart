@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 const _kAppBarButtonSize = 36.0;
 const _kBorderRadius = 8.0;
 const _kWelcomeText = 'Welcome back!';
-const _kUserAvatarSize = 44.0;
+const _kUserAvatarSize = 50.0;
 
 class WalletAppBar extends AppBar {
   final String text;
@@ -77,6 +77,7 @@ class HomeTabAppBar extends AppBar {
     this.onMorePressed,
   }) : super(
             titleSpacing: 0,
+            toolbarHeight: kExtendedToolbarHeight,
             key: key,
             leading: Padding(
               padding: EdgeInsets.only(
