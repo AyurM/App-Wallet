@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:app_wallet/data/model/balance_stat.dart';
+import 'package:app_wallet/data/model/user_profile.dart';
 import 'package:flutter/material.dart';
 
 const _kMinBalancePercent = 10;
@@ -32,4 +33,9 @@ class DataMockUtils {
     }
     return result;
   }
+
+  static UserProfile getMockUser() => const UserProfile(
+      id: 1,
+      name: 'Ayur Markhakshinov',
+      imagePath: 'assets/images/user_avatar.jpg');
 }

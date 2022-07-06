@@ -3,7 +3,6 @@ import 'dart:ui' as ui;
 
 import 'package:app_wallet/data/model/balance_stat.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 const _kBorderWidthRatio = 16 / 89;
 const _kBgColors = [Color(0xFF2D2E53), Color(0xFF201F3F)];
@@ -29,10 +28,10 @@ class BalanceCircle extends StatelessWidget {
             size: Size.infinite,
           ),
           Text('${data.percent}%',
-              style: GoogleFonts.inter(
-                  color: Colors.white,
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold))
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyText1
+                  ?.copyWith(fontWeight: FontWeight.w700))
         ],
       ),
     );

@@ -1,10 +1,13 @@
+import 'package:app_wallet/components/user_avatar.dart';
+import 'package:app_wallet/data/model/user_profile.dart';
 import 'package:app_wallet/res/theme/app_colors.dart';
 import 'package:app_wallet/res/theme/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 const _kAppBarButtonSize = 36.0;
 const _kBorderRadius = 8.0;
+const _kWelcomeText = 'Welcome back!';
+const _kUserAvatarSize = 44.0;
 
 class WalletAppBar extends AppBar {
   final String text;
@@ -57,8 +60,65 @@ class WalletAppBar extends AppBar {
       kHorizontalPadding20.right;
 
   @override
-  TextStyle? get titleTextStyle => GoogleFonts.inter(
-      fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white);
+  TextStyle? get titleTextStyle => Theme.of(context).textTheme.headline3;
+}
+
+class HomeTabAppBar extends AppBar {
+  final UserProfile userProfile;
+  final void Function()? onMorePressed;
+  final BuildContext context;
+  final Color? bgColor;
+
+  HomeTabAppBar({
+    Key? key,
+    required this.userProfile,
+    required this.context,
+    this.bgColor,
+    this.onMorePressed,
+  }) : super(
+            titleSpacing: 0,
+            key: key,
+            leading: Padding(
+              padding: EdgeInsets.only(
+                  left: kHorizontalPadding20.left,
+                  right: kHorizontalPadding10.right),
+              child: UserAvatar(
+                  imagePath: userProfile.imagePath, size: _kUserAvatarSize),
+            ),
+            actions: [
+              AppBarButton(
+                iconData: Icons.more_vert_rounded,
+                onPressed: onMorePressed ?? () {},
+                hasHorizontalPadding: true,
+              )
+            ],
+            title:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Text(_kWelcomeText,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText1
+                      ?.copyWith(fontWeight: FontWeight.w700)),
+              const SizedBox(height: 3),
+              Text(userProfile.name,
+                  style: Theme.of(context).textTheme.subtitle2)
+            ]));
+
+  @override
+  bool? get centerTitle => false;
+
+  @override
+  Color? get backgroundColor => bgColor ?? AppColors.darkPrimary;
+
+  @override
+  double? get elevation => 0;
+
+  @override
+  double? get leadingWidth =>
+      _kUserAvatarSize + kHorizontalPadding20.left + kHorizontalPadding10.right;
+
+  @override
+  TextStyle? get titleTextStyle => Theme.of(context).textTheme.headline3;
 }
 
 class AppBarButton extends StatelessWidget {
