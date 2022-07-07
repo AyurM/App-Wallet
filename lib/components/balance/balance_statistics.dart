@@ -1,7 +1,7 @@
 import 'dart:math';
 import 'dart:ui' as ui;
 
-import 'package:app_wallet/components/balance_circle.dart';
+import 'package:app_wallet/components/balance/balance_circle.dart';
 import 'package:app_wallet/data/model/balance_stat.dart';
 import 'package:app_wallet/utils/data_mock_utils.dart';
 import 'package:flutter/material.dart';

@@ -17,6 +17,7 @@ class WalletAppBar extends AppBar {
   final BuildContext context;
   final Color? bgColor;
   final Widget? customAction;
+  final PreferredSizeWidget? bottomWidget;
 
   WalletAppBar(
       {Key? key,
@@ -26,9 +27,11 @@ class WalletAppBar extends AppBar {
       this.bgColor,
       this.onBackPressed,
       this.onMorePressed,
+      this.bottomWidget,
       this.customAction})
       : super(
             key: key,
+            bottom: bottomWidget,
             leading: AppBarButton(
               iconData: leadingIcon ?? Icons.chevron_left_outlined,
               onPressed: onBackPressed ?? () => Navigator.of(context).pop(),

@@ -1,10 +1,10 @@
-import 'package:app_wallet/components/credit_card.dart';
-import 'package:app_wallet/components/credit_card_stack.dart';
+import 'package:app_wallet/components/credit_card/credit_card_stack.dart';
 import 'package:flutter/material.dart';
 
 const _kCardHorizontalSpacing = 20.0;
 const _kIndicatorSize = 6.0;
 const _kIndicatorSpacing = 15.0;
+const _kStackAspectRatio = 1.4228;
 
 class CreditCardSlider extends StatefulWidget {
   const CreditCardSlider({Key? key}) : super(key: key);
@@ -20,9 +20,7 @@ class _CreditCardSliderState extends State<CreditCardSlider> {
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: ((context, constraints) {
       final cardWidth = constraints.maxWidth - 2 * _kCardHorizontalSpacing;
-      final cardStackHeight = cardWidth *
-          (1 + CreditCardStack.firstCardTopPosition) /
-          CreditCard.aspectRatio;
+      final cardStackHeight = cardWidth / _kStackAspectRatio;
 
       return Column(
         children: [

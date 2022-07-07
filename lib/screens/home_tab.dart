@@ -1,8 +1,8 @@
 import 'package:app_wallet/components/app_bar.dart';
-import 'package:app_wallet/components/available_balance.dart';
-import 'package:app_wallet/components/balance_statistics.dart';
+import 'package:app_wallet/components/balance/available_balance.dart';
+import 'package:app_wallet/components/balance/balance_statistics.dart';
 
-import 'package:app_wallet/components/transaction_list.dart';
+import 'package:app_wallet/components/transactions/transaction_list.dart';
 import 'package:app_wallet/res/theme/app_colors.dart';
 
 import 'package:app_wallet/utils/data_mock_utils.dart';

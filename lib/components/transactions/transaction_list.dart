@@ -1,4 +1,4 @@
-import 'package:app_wallet/components/transaction_card.dart';
+import 'package:app_wallet/components/transactions/transaction_card.dart';
 import 'package:app_wallet/data/model/transaction_data.dart';
 import 'package:app_wallet/res/theme/app_colors.dart';
 import 'package:flutter/material.dart';

@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 const _kPadding = EdgeInsets.fromLTRB(33, 0, 14, 13);
-const _kChipWidth = 60.0;
-const _kWavesWidth = 19.0;
+const _kRelativeChipWidth = 0.171;
+const _kRelativeWavesWidth = 0.054;
+const _kRelativeLogoWidth = 0.211;
 const _kBorderRadius = 15.0;
 
 class CreditCard extends StatelessWidget {
@@ -84,10 +85,10 @@ class CreditCard extends StatelessWidget {
                 children: [
                   const SizedBox(width: 8),
                   Image.asset('assets/images/card_chip.png',
-                      width: _kChipWidth),
+                      width: constraints.maxWidth * _kRelativeChipWidth),
                   const SizedBox(width: 24),
                   Image.asset('assets/images/card_waves.png',
-                      width: _kWavesWidth)
+                      width: constraints.maxWidth * _kRelativeWavesWidth)
                 ],
               ),
               const SizedBox(height: 11),
@@ -118,7 +119,7 @@ class CreditCard extends StatelessWidget {
                 bottom: 0,
                 child: Image.asset(
                   'assets/images/master_card.png',
-                  width: 74,
+                  width: constraints.maxWidth * _kRelativeLogoWidth,
                 ))
           ],
         ),
