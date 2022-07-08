@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:app_wallet/data/model/balance_stat.dart';
 import 'package:app_wallet/data/model/transaction_data.dart';
 import 'package:app_wallet/data/model/user_profile.dart';
+import 'package:app_wallet/utils/enum_period.dart';
 import 'package:flutter/material.dart';
 
 const _kMinBalancePercent = 10;
@@ -87,5 +88,16 @@ class DataMockUtils {
           dateTime: DateTime(now.year, now.month, now.day - 3),
           type: TransactionType.expense),
     ];
+  }
+
+  static double getMockSpendings(Period period) {
+    switch (period) {
+      case Period.week:
+        return 1348.97;
+      case Period.month:
+        return 3509.15;
+      case Period.year:
+        return 42897.68;
+    }
   }
 }

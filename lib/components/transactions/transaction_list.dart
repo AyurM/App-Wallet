@@ -20,8 +20,7 @@ class TransactionList extends StatelessWidget {
         children: [
           Text(_titleText,
               style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                  fontWeight: FontWeight.w700,
-                  color: Colors.white.withOpacity(0.87))),
+                  fontWeight: FontWeight.w700, color: AppColors.primaryText87)),
           const SizedBox(height: 20),
           ..._buildWidgetList(data)
         ],

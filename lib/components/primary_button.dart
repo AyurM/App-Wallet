@@ -24,32 +24,13 @@ class PrimaryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final borderRadius = BorderRadius.circular(_kBorderRadius);
-
     return Padding(
       padding: margin ?? EdgeInsets.zero,
       child: Stack(
         children: [
-          Positioned.fill(
-              child: DecoratedBox(
-                  decoration: BoxDecoration(
-                      borderRadius: borderRadius,
-                      gradient: const LinearGradient(
-                          colors: [Color(0xFF01D3E1), Color(0xFF2067EF)])))),
-          Positioned(
-              left: 1,
-              right: 1,
-              top: 1,
-              bottom: 1,
-              child: DecoratedBox(
-                  decoration: BoxDecoration(
-                      borderRadius: borderRadius,
-                      gradient: const LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: [AppColors.accent, AppColors.blue])))),
+          ...getDecorations(_kBorderRadius),
           ClipRRect(
-            borderRadius: borderRadius,
+            borderRadius: BorderRadius.circular(_kBorderRadius),
             child: TextButton(
               style: TextButton.styleFrom(
                 tapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -64,4 +45,21 @@ class PrimaryButton extends StatelessWidget {
       ),
     );
   }
+
+  static List<Widget> getDecorations(double borderRadius) => [
+        Positioned.fill(
+            child: DecoratedBox(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(borderRadius),
+                    gradient: AppColors.buttonBorderGradient))),
+        Positioned(
+            left: 1,
+            right: 1,
+            top: 1,
+            bottom: 1,
+            child: DecoratedBox(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(borderRadius),
+                    gradient: AppColors.buttonGradient))),
+      ];
 }

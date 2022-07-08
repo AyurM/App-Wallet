@@ -2,15 +2,17 @@ import 'package:app_wallet/components/app_bar.dart';
 import 'package:app_wallet/components/balance/available_balance.dart';
 import 'package:app_wallet/components/credit_card/add_card_form.dart';
 import 'package:app_wallet/components/credit_card/credit_card_slider.dart';
+import 'package:app_wallet/res/theme/app_colors.dart';
 import 'package:app_wallet/res/theme/constants.dart';
 import 'package:flutter/material.dart';
 
 const _titleText = 'Wallet';
 const _bottomTitleText = 'Cards';
-const _kBarBottomHeight = 30.0;
 
 class WalletTab extends StatelessWidget {
-  const WalletTab({Key? key}) : super(key: key);
+  final void Function()? onBackPressed;
+
+  const WalletTab({Key? key, this.onBackPressed}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,9 +22,9 @@ class WalletTab extends StatelessWidget {
         appBar: WalletAppBar(
           text: _titleText,
           context: context,
-          onBackPressed: () {},
+          onBackPressed: onBackPressed,
           bottomWidget: const PreferredSize(
-              preferredSize: Size.fromHeight(_kBarBottomHeight),
+              preferredSize: Size.fromHeight(kAppBarBottomHeight),
               child: _WalletTabBottom()),
         ),
         body: SingleChildScrollView(
@@ -51,7 +53,7 @@ class _WalletTabBottom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => SizedBox(
-        height: _kBarBottomHeight,
+        height: kAppBarBottomHeight,
         child: Column(
           children: [
             Text(
@@ -59,7 +61,7 @@ class _WalletTabBottom extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .bodyText1
-                  ?.copyWith(color: Colors.white.withOpacity(0.87)),
+                  ?.copyWith(color: AppColors.primaryText87),
             ),
             const Spacer(),
             Container(

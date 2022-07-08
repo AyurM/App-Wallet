@@ -55,13 +55,13 @@ class _AddCardFormState extends State<AddCardForm> {
           const AppFormField(labelText: 'Cardholder Name'),
           const SizedBox(height: 20),
           Row(
-            children: [
-              const Expanded(
+            children: const [
+              Expanded(
                 flex: 166,
                 child: AppFormField(labelText: 'Expiration Date'),
               ),
-              const SizedBox(width: 17),
-              const Expanded(
+              SizedBox(width: 17),
+              Expanded(
                 flex: 127,
                 child: AppFormField(labelText: 'Security Code'),
               ),

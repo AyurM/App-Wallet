@@ -36,6 +36,7 @@ class WalletAppBar extends AppBar {
               iconData: leadingIcon ?? Icons.chevron_left_outlined,
               onPressed: onBackPressed ?? () => Navigator.of(context).pop(),
               hasHorizontalPadding: true,
+              backgroundColor: bgColor,
             ),
             actions: [
               if (customAction != null) customAction,
@@ -43,6 +44,7 @@ class WalletAppBar extends AppBar {
                 iconData: Icons.more_vert_rounded,
                 onPressed: onMorePressed ?? () {},
                 hasHorizontalPadding: true,
+                backgroundColor: bgColor,
               )
             ],
             title: Text(text));
@@ -94,6 +96,7 @@ class HomeTabAppBar extends AppBar {
                 iconData: Icons.more_vert_rounded,
                 onPressed: onMorePressed ?? () {},
                 hasHorizontalPadding: true,
+                backgroundColor: bgColor,
               )
             ],
             title:
@@ -130,11 +133,14 @@ class AppBarButton extends StatelessWidget {
   final double? iconSize;
   final void Function()? onPressed;
   final bool hasHorizontalPadding;
+  final Color? backgroundColor;
+
   const AppBarButton(
       {Key? key,
       required this.iconData,
       this.iconSize,
       this.onPressed,
+      this.backgroundColor,
       this.hasHorizontalPadding = false})
       : super(key: key);
 
@@ -148,7 +154,7 @@ class AppBarButton extends StatelessWidget {
           height: _kAppBarButtonSize,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(_kBorderRadius),
-              color: AppColors.darkPrimary),
+              color: backgroundColor ?? AppColors.darkPrimary),
           child: InkWell(
             onTap: onPressed,
             borderRadius: BorderRadius.circular(_kBorderRadius),

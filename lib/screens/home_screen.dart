@@ -1,5 +1,6 @@
 import 'package:app_wallet/components/app_bottom_nav_bar.dart';
 import 'package:app_wallet/screens/home_tab.dart';
+import 'package:app_wallet/screens/insight_tab.dart';
 import 'package:app_wallet/screens/wallet_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -43,14 +44,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             TabBarView(
               controller: tabController,
               physics: const NeverScrollableScrollPhysics(),
-              children: const [
-                HomeTab(),
-                WalletTab(),
-                Center(
-                    child: Text(
-                  'Insight Tab',
-                )),
-                Center(child: Text('Profile Tab'))
+              children: [
+                const HomeTab(),
+                WalletTab(onBackPressed: () => _onTabSelect(0)),
+                InsightTab(onBackPressed: () => _onTabSelect(0)),
+                const Center(child: Text('Profile Tab'))
               ],
             ),
           ],

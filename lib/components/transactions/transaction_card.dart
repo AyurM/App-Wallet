@@ -41,7 +41,7 @@ class TransactionCard extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       style: textTheme.bodyText1?.copyWith(
                           fontWeight: FontWeight.w700,
-                          color: Colors.white.withOpacity(0.87))),
+                          color: AppColors.primaryText87)),
                   const SizedBox(height: 3),
                   Text(_dateFormat.format(data.dateTime),
                       style: textTheme.subtitle2)
