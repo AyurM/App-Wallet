@@ -1,4 +1,5 @@
 import 'package:app_wallet/components/credit_card/credit_card_stack.dart';
+import 'package:app_wallet/data/model/credit_card_input.dart';
 import 'package:flutter/material.dart';
 
 const _kCardHorizontalSpacing = 20.0;
@@ -7,7 +8,11 @@ const _kIndicatorSpacing = 15.0;
 const _kStackAspectRatio = 1.4228;
 
 class CreditCardSlider extends StatefulWidget {
-  const CreditCardSlider({Key? key}) : super(key: key);
+  final List<CreditCardInput> cardsData;
+  final void Function(int)? onChanged;
+
+  const CreditCardSlider({Key? key, required this.cardsData, this.onChanged})
+      : super(key: key);
 
   @override
   State<CreditCardSlider> createState() => _CreditCardSliderState();
@@ -15,6 +20,19 @@ class CreditCardSlider extends StatefulWidget {
 
 class _CreditCardSliderState extends State<CreditCardSlider> {
   final PageController pageController = PageController();
+  int _selectedPage = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    pageController.addListener(_pageControllerListener);
+  }
+
+  @override
+  void dispose() {
+    pageController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,22 +49,14 @@ class _CreditCardSliderState extends State<CreditCardSlider> {
               children: [
                 AnimatedBuilder(
                     animation: pageController,
-                    builder: (context, snapshot) {
-                      final pageValue = pageController.hasClients &&
-                              pageController.page != null
-                          ? pageController.page!
-                          : 0.0;
-                      return CreditCardStack(
-                          pageValue: pageValue,
-                          horizontalSpacing: _kCardHorizontalSpacing);
-                    }),
+                    builder: (context, snapshot) => CreditCardStack(
+                        cardsData: widget.cardsData,
+                        pageValue: _pageValue,
+                        horizontalSpacing: _kCardHorizontalSpacing)),
                 PageView(
                   controller: pageController,
-                  children: const [
-                    SizedBox.expand(),
-                    SizedBox.expand(),
-                    SizedBox.expand(),
-                  ],
+                  children: List<Widget>.generate(
+                      widget.cardsData.length, (_) => const SizedBox.expand()),
                 )
               ],
             ),
@@ -54,21 +64,33 @@ class _CreditCardSliderState extends State<CreditCardSlider> {
           const SizedBox(height: 30),
           AnimatedBuilder(
               animation: pageController,
-              builder: (context, snapshot) {
-                final pageIndex =
-                    pageController.hasClients && pageController.page != null
-                        ? pageController.page!.round()
-                        : 0;
-                return _PageIndicator(
-                    pageIndex: pageIndex,
-                    totalPages: 3,
-                    size: _kIndicatorSize,
-                    spacing: _kIndicatorSpacing);
-              })
+              builder: (context, snapshot) => _PageIndicator(
+                  pageIndex: _pageIndex,
+                  totalPages: widget.cardsData.length,
+                  size: _kIndicatorSize,
+                  spacing: _kIndicatorSpacing))
         ],
       );
     }));
   }
+
+  void _pageControllerListener() {
+    if (_pageIndex == _selectedPage) {
+      return;
+    }
+
+    _selectedPage = _pageIndex;
+    widget.onChanged?.call(_selectedPage);
+  }
+
+  int get _pageIndex => pageController.hasClients && pageController.page != null
+      ? pageController.page!.round()
+      : 0;
+
+  double get _pageValue =>
+      pageController.hasClients && pageController.page != null
+          ? pageController.page!
+          : 0.0;
 }
 
 class _PageIndicator extends StatelessWidget {

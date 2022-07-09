@@ -1,8 +1,10 @@
+import 'package:app_wallet/components/balance/app_animated_value.dart';
 import 'package:flutter/material.dart';
 
 const _titleText = 'Total Spendings';
+const _kAnimDuration = Duration(milliseconds: 250);
 
-class TotalSpendings extends StatelessWidget {
+class TotalSpendings extends StatefulWidget {
   final double value;
   final String symbol;
 
@@ -10,16 +12,44 @@ class TotalSpendings extends StatelessWidget {
       : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
+  State<TotalSpendings> createState() => _TotalSpendingsState();
+}
 
+class _TotalSpendingsState extends State<TotalSpendings>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController animationController;
+
+  @override
+  void initState() {
+    super.initState();
+    animationController =
+        AnimationController(duration: _kAnimDuration, vsync: this)..forward();
+  }
+
+  @override
+  void didUpdateWidget(covariant TotalSpendings oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.value != widget.value) {
+      animationController.forward(from: 0);
+    }
+  }
+
+  @override
+  void dispose() {
+    animationController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(_titleText, style: textTheme.subtitle1),
+        Text(_titleText, style: Theme.of(context).textTheme.subtitle1),
         const SizedBox(height: 5),
-        Text('$symbol$value'.replaceFirst('.', ','),
-            style: textTheme.headline2),
+        AppAnimatedValue(
+            animationController: animationController,
+            text: '${widget.symbol}${widget.value}'.replaceFirst('.', ',')),
       ],
     );
   }

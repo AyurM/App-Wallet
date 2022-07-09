@@ -1,35 +1,28 @@
 import 'dart:math';
 
 import 'package:app_wallet/components/credit_card/credit_card.dart';
+import 'package:app_wallet/data/model/credit_card_input.dart';
 import 'package:flutter/material.dart';
 
-const _kMockName = 'AYUR MARKHAKSHINOV';
 const _cardScales = [1.0, 0.886, 0.771];
 const _relativeTopPositions = [
   CreditCardStack.firstCardTopPosition,
   0.0545,
   0.0
 ];
-const _kMockNumbers = [
-  '1234 5678 9012 3456',
-  '0987 6543 2109 8765',
-  '5547 1217 0843 6628',
-];
-
-final mockValidDates = [
-  DateTime(2029, 9),
-  DateTime(2027, 11),
-  DateTime(2030, 5),
-];
 
 class CreditCardStack extends StatelessWidget {
   static const firstCardTopPosition = 0.118;
 
+  final List<CreditCardInput> cardsData;
   final double pageValue;
   final double horizontalSpacing;
 
   const CreditCardStack(
-      {Key? key, required this.pageValue, this.horizontalSpacing = 20.0})
+      {Key? key,
+      required this.cardsData,
+      required this.pageValue,
+      this.horizontalSpacing = 20.0})
       : super(key: key);
 
   @override
@@ -46,13 +39,16 @@ class CreditCardStack extends StatelessWidget {
 
       return Stack(
           children: List<Widget>.generate(
-              _kMockNumbers.length,
-              (index) => _getCreditCard(_kMockNumbers.length - 1 - index,
-                  topPositionsInPixels, constraints.maxWidth)));
+              cardsData.length,
+              (index) => _buildCreditCard(
+                  data: cardsData[index],
+                  index: cardsData.length - 1 - index,
+                  topPositions: topPositionsInPixels,
+                  maxWidth: constraints.maxWidth)));
     }));
   }
 
-  double _getCardScale(int cardIndex) {
+  double _calcCardScale(int cardIndex) {
     if (cardIndex == 0) {
       return _cardScales[cardIndex];
     }
@@ -67,7 +63,7 @@ class CreditCardStack extends StatelessWidget {
             adjustedPageValue;
   }
 
-  double _getCardTopPosition(int cardIndex, List<double> topPositions) {
+  double _calcCardTopPosition(int cardIndex, List<double> topPositions) {
     if (cardIndex == 0) {
       return topPositions[cardIndex];
     }
@@ -82,7 +78,7 @@ class CreditCardStack extends StatelessWidget {
             (1 - adjustedPageValue);
   }
 
-  double _getCardSidePosition(int cardIndex, double maxWidth,
+  double _calcCardSidePosition(int cardIndex, double maxWidth,
       {bool isLeft = true}) {
     if (cardIndex == _cardScales.length) {
       return horizontalSpacing;
@@ -97,32 +93,27 @@ class CreditCardStack extends StatelessWidget {
   int _calcIndexAdjustment(int cardIndex) =>
       pageValue > cardIndex - 1 ? max(0, cardIndex - 1) : max(0, cardIndex - 2);
 
-  Widget _getCreditCard(int index, List<double> topPositions, double maxWidth) {
+  Widget _buildCreditCard(
+      {required CreditCardInput data,
+      required int index,
+      required List<double> topPositions,
+      required double maxWidth}) {
     Widget card;
 
     if (index % 3 == 0) {
-      card = CreditCard.purple(
-          name: _kMockName,
-          number: _kMockNumbers[index],
-          valid: mockValidDates[index]);
+      card = CreditCard.purple(data: data);
     } else if (index % 3 == 1) {
-      card = CreditCard.blue(
-          name: _kMockName,
-          number: _kMockNumbers[index],
-          valid: mockValidDates[index]);
+      card = CreditCard.blue(data: data);
     } else {
-      card = CreditCard.green(
-          name: _kMockName,
-          number: _kMockNumbers[index],
-          valid: mockValidDates[index]);
+      card = CreditCard.green(data: data);
     }
 
     return Positioned(
-        left: _getCardSidePosition(index, maxWidth),
-        right: _getCardSidePosition(index, maxWidth, isLeft: false),
-        top: _getCardTopPosition(index, topPositions),
+        left: _calcCardSidePosition(index, maxWidth),
+        right: _calcCardSidePosition(index, maxWidth, isLeft: false),
+        top: _calcCardTopPosition(index, topPositions),
         child: Transform.scale(
-          scale: _getCardScale(index),
+          scale: _calcCardScale(index),
           child: card,
         ));
   }

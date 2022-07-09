@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:app_wallet/data/model/balance_stat.dart';
+import 'package:app_wallet/data/model/credit_card_input.dart';
 import 'package:app_wallet/data/model/transaction_data.dart';
 import 'package:app_wallet/data/model/user_profile.dart';
 import 'package:app_wallet/utils/enum_period.dart';
@@ -9,11 +10,13 @@ import 'package:flutter/material.dart';
 const _kMinBalancePercent = 10;
 const _kMaxBalancePercent = 80;
 const _kBalanceCount = 3;
+const _kMockOwnerName = 'Ayur Markhakshinov';
 
 class DataMockUtils {
   DataMockUtils._();
 
   static final _random = Random();
+  static final _now = DateTime.now();
 
   static List<BalanceStat> getMockBalanceStats() {
     final balanceValues = List<int>.generate(
@@ -37,55 +40,51 @@ class DataMockUtils {
   }
 
   static UserProfile getMockUser() => const UserProfile(
-      id: 1,
-      name: 'Ayur Markhakshinov',
-      imagePath: 'assets/images/user_avatar.jpg');
+      id: 1, name: _kMockOwnerName, imagePath: 'assets/images/user_avatar.jpg');
 
   static List<TransactionData> getMockTransactions() {
-    final now = DateTime.now();
-
     return [
       TransactionData(
           title: 'Shell',
           imagePath: 'assets/images/logo_shell.png',
           value: 87.41,
-          dateTime: DateTime(now.year, now.month, now.day - 1),
+          dateTime: DateTime(_now.year, _now.month, _now.day - 1),
           type: TransactionType.expense),
       TransactionData(
           title: 'Amazon',
           imagePath: 'assets/images/logo_amazon.png',
           value: 142.80,
-          dateTime: DateTime(now.year, now.month, now.day - 1),
+          dateTime: DateTime(_now.year, _now.month, _now.day - 1),
           type: TransactionType.expense),
       TransactionData(
           title: 'Apple',
           imagePath: 'assets/images/logo_apple.png',
           value: 328.0,
-          dateTime: DateTime(now.year, now.month, now.day - 2),
+          dateTime: DateTime(_now.year, _now.month, _now.day - 2),
           type: TransactionType.expense),
       TransactionData(
           title: 'Carrefour',
           imagePath: 'assets/images/logo_carrefour.png',
           value: 112.43,
-          dateTime: DateTime(now.year, now.month, now.day - 2),
+          dateTime: DateTime(_now.year, _now.month, _now.day - 2),
           type: TransactionType.expense),
       TransactionData(
           title: 'Transfer',
           imagePath: 'assets/images/logo_transfer.png',
           value: 1670.0,
-          dateTime: DateTime(now.year, now.month, now.day - 2),
+          dateTime: DateTime(_now.year, _now.month, _now.day - 2),
           type: TransactionType.income),
       TransactionData(
           title: 'Carrefour',
           imagePath: 'assets/images/logo_carrefour.png',
           value: 112.43,
-          dateTime: DateTime(now.year, now.month, now.day - 3),
+          dateTime: DateTime(_now.year, _now.month, _now.day - 3),
           type: TransactionType.expense),
       TransactionData(
           title: 'Shell',
           imagePath: 'assets/images/logo_shell.png',
           value: 32.87,
-          dateTime: DateTime(now.year, now.month, now.day - 3),
+          dateTime: DateTime(_now.year, _now.month, _now.day - 3),
           type: TransactionType.expense),
     ];
   }
@@ -99,5 +98,39 @@ class DataMockUtils {
       case Period.year:
         return 42897.68;
     }
+  }
+
+  static List<double> getMockCardsBalance(int size) => List<double>.generate(
+      size, (index) => _random.nextDouble() * 1000 + _random.nextInt(4) * 1000);
+
+  static List<CreditCardInput> getMockCreditCards(int amount) =>
+      List<CreditCardInput>.generate(
+          amount, (index) => _getMockCreditCardInput());
+
+  static CreditCardInput _getMockCreditCardInput() {
+    final expDate = DateTime(_now.year + 1 + _random.nextInt(6),
+        _random.nextInt(12) + 1, _random.nextInt(31));
+
+    final mockCode = _random.nextInt(1000).toString().padLeft(3, '0');
+
+    return CreditCardInput(
+        cardNumber: _getMockCreditCardNumber(),
+        ownerName: _kMockOwnerName.toUpperCase(),
+        expirationDate: expDate,
+        code: mockCode);
+  }
+
+  static String _getMockCreditCardNumber() {
+    final buffer = StringBuffer();
+
+    for (int i = 0; i < 4; i++) {
+      final randomNumber = _random.nextInt(10000);
+      buffer.write(randomNumber.toString().padLeft(4, '0'));
+      if (i != 3) {
+        buffer.write(' ');
+      }
+    }
+
+    return buffer.toString();
   }
 }

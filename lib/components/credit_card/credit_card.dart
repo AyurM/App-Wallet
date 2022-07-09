@@ -1,4 +1,5 @@
 import 'package:app_wallet/components/outlined_text.dart';
+import 'package:app_wallet/data/model/credit_card_input.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -11,17 +12,11 @@ const _kBorderRadius = 15.0;
 class CreditCard extends StatelessWidget {
   static const aspectRatio = 1.591;
 
-  final String name;
-  final String number;
-  final DateTime? valid;
+  final CreditCardInput data;
 
   final Gradient gradient;
 
-  const CreditCard.purple(
-      {Key? key,
-      required this.name,
-      this.number = '0000 0000 0000 0000',
-      this.valid})
+  const CreditCard.purple({Key? key, required this.data})
       : gradient = const LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -31,11 +26,7 @@ class CreditCard extends StatelessWidget {
             ]),
         super(key: key);
 
-  const CreditCard.green(
-      {Key? key,
-      required this.name,
-      this.number = '0000 0000 0000 0000',
-      this.valid})
+  const CreditCard.green({Key? key, required this.data})
       : gradient = const LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -45,11 +36,7 @@ class CreditCard extends StatelessWidget {
             ]),
         super(key: key);
 
-  const CreditCard.blue(
-      {Key? key,
-      required this.name,
-      this.number = '0000 0000 0000 0000',
-      this.valid})
+  const CreditCard.blue({Key? key, required this.data})
       : gradient = const LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -92,14 +79,14 @@ class CreditCard extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 11),
-              OutlinedText(text: number, fontSize: 24),
+              OutlinedText(text: data.cardNumber, fontSize: 24),
               const SizedBox(height: 10),
-              _CardValidThru(valid: valid),
+              _CardValidThru(valid: data.expirationDate),
               const Spacer(
                 flex: 10,
               ),
               Text(
-                name,
+                data.ownerName,
                 maxLines: 1,
                 overflow: TextOverflow.fade,
                 style: GoogleFonts.inter(
@@ -129,14 +116,13 @@ class CreditCard extends StatelessWidget {
 }
 
 class _CardValidThru extends StatelessWidget {
-  final DateTime? valid;
+  final DateTime valid;
 
-  const _CardValidThru({Key? key, this.valid}) : super(key: key);
+  const _CardValidThru({Key? key, required this.valid}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final String validDate =
-        valid == null ? '00/00' : _getValidThruString(valid!);
+    final String validDate = _getValidThruString(valid);
 
     return Padding(
       padding: const EdgeInsets.only(left: 100),
