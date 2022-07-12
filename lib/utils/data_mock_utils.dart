@@ -5,6 +5,7 @@ import 'package:app_wallet/data/model/credit_card_input.dart';
 import 'package:app_wallet/data/model/transaction_data.dart';
 import 'package:app_wallet/data/model/user_profile.dart';
 import 'package:app_wallet/utils/enum_period.dart';
+import 'package:app_wallet/utils/enum_transaction_type.dart';
 import 'package:flutter/material.dart';
 
 const _kMinBalancePercent = 10;
@@ -132,5 +133,16 @@ class DataMockUtils {
     }
 
     return buffer.toString();
+  }
+
+  static List<double> getMockInsightGraphValues() {
+    final result = <double>[];
+    result.add(_random.nextDouble() * 100 + 100);
+
+    for (int i = 1; i < 7; i++) {
+      result.add(result[i - 1] +
+          _random.nextDouble() * 25 * (_random.nextBool() ? 1 : -1));
+    }
+    return result;
   }
 }

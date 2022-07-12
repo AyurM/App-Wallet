@@ -1,5 +1,6 @@
 import 'package:app_wallet/data/model/transaction_data.dart';
 import 'package:app_wallet/res/theme/app_colors.dart';
+import 'package:app_wallet/utils/enum_transaction_type.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 

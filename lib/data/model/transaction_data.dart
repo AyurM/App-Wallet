@@ -1,4 +1,4 @@
-enum TransactionType { expense, income }
+import 'package:app_wallet/utils/enum_transaction_type.dart';
 
 class TransactionData {
   final String title;

@@ -49,10 +49,13 @@ class _InsightTabState extends State<InsightTab>
             child:
                 AppTabBar(tabTitles: _kTabTitles, controller: tabController)),
       ),
-      body: TabBarView(controller: tabController, children: [
-        const InsightStatsTab(),
-        Center(child: Text(_kTabTitles[1], style: textTheme.bodyText1)),
-      ]),
+      body: TabBarView(
+          controller: tabController,
+          physics: const NeverScrollableScrollPhysics(),
+          children: [
+            const InsightStatsTab(),
+            Center(child: Text(_kTabTitles[1], style: textTheme.bodyText1)),
+          ]),
     );
   }
 }
